@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { redis, NUMBERS_KEY, COUNTER_KEY } from "@/lib/redis";
 
+export const runtime = "edge";
+
 export async function GET(req: NextRequest) {
   try {
-    const numbers = await redis.lrange(NUMBERS_KEY, 0, -1);
+    const pipe = redis.pipeline();
+    pipe.lrange(NUMBERS_KEY, 0, -1);
+    pipe.incr(COUNTER_KEY);
+    const [numbers, counter] = await pipe.exec<[string[], number]>();
 
     if (!numbers || numbers.length === 0) {
       return NextResponse.json(
@@ -12,9 +17,8 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const counter = await redis.incr(COUNTER_KEY);
     const index = (counter - 1) % numbers.length;
-    const number = numbers[index];
+    const number = String(numbers[index]);
 
     const { searchParams } = req.nextUrl;
     const textParam = searchParams.get("text");

@@ -289,7 +289,6 @@ export default function Dashboard() {
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-6 sm:py-10 space-y-4">
-      {/* Feedback */}
       {feedback && (
         <div
           className={`rounded-lg px-3 py-2 text-sm ${
@@ -302,7 +301,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Redirect URL */}
       <Card size="sm">
         <CardContent>
           <div className="flex gap-2">
@@ -314,7 +312,6 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Link Builder */}
       <Card size="sm">
         <CardContent className="space-y-2">
           <label className="text-xs text-muted-foreground">
@@ -338,7 +335,6 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Add Number */}
       <form onSubmit={handleAdd} className="flex gap-2">
         <Input
           value={newNumber}
@@ -350,7 +346,6 @@ export default function Dashboard() {
         </Button>
       </form>
 
-      {/* Numbers List */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">
